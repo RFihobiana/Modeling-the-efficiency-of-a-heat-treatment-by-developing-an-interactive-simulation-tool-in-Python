@@ -76,8 +76,8 @@ N_end = float(N[-1])
 log_red = sim.log_reduction(N0, N_end)
 time_5log = sim.time_to_log_reduction(5.0, D_ref, T_ref, T, z)
 
-    df = pd.DataFrame({"time_min": times, "N": N})
-    df["log_reduction"] = np.log10(N0 / df["N"])
+df = pd.DataFrame({"time_min": times, "N": N})
+df["log_reduction"] = np.log10(N0 / df["N"])
 
 col1, col2 = st.columns([3, 1])
 
@@ -126,12 +126,12 @@ with col1:
         )
     )
 
-    st.plotly_chart(fig, use_container_width=True)
+    st.plotly_chart(fig, width="stretch")
 
     # Log reduction plot
     fig2 = px.line(df, x="time_min", y="log_reduction", template="plotly_white", labels={"time_min": "Time (min)", "log_reduction": "Log10 reduction"})
     fig2.update_traces(line=dict(color="#2ca02c", width=3))
-    st.plotly_chart(fig2, use_container_width=True)
+    st.plotly_chart(fig2, width="stretch")
 
 with col2:
     st.metric("Estimated survivors after heating (N)", f"{N_end:.3g}")
